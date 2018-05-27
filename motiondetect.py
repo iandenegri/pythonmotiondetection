@@ -43,6 +43,11 @@ while True:
         (x,y,w,h)=cv2.boundingRect(contour)
         cv2.rectangle(frame, (x,y), (x+w,y+h), (0,255,0), 3)
 
+# Keep the program from having a huge list of 1's and 0's. Better memory
+# management.
+        status_list = status_list[-5:]
+
+
 # updating status for determining when movement is occuring for logging purposes
     status_list.append(motion_status)
     # Something appears
@@ -73,3 +78,4 @@ df.to_csv('Times.csv')
 
 video.release()
 cv2.destroyAllWindows
+print(status_list)
